@@ -1060,7 +1060,7 @@ static void cmd_char_write_common(int argcp, char **argvp, int with_response)
     }
 
     plen = gatt_attr_data_from_string(argvp[2], &value);
-    if (plen == 0) {
+    if (plen == (size_t)-1) {
         resp_error(err_BAD_PARAM);
         return;
     }
@@ -1665,9 +1665,9 @@ static struct {
         "Characteristics Value/Descriptor Read by handle" },
     { "rdu",        cmd_read_uuid,  "<UUID> [start hnd] [end hnd]",
         "Characteristics Value/Descriptor Read by UUID" },
-    { "wrr",        cmd_char_write_rsp, "<handle> <new value>",
+    { "wrr",        cmd_char_write_rsp, "<handle> [<new value>|'<new value>']",
         "Characteristic Value Write (Write Request)" },
-    { "wr",         cmd_char_write, "<handle> <new value>",
+    { "wr",         cmd_char_write, "<handle> [<new value>|'<new value>']",
         "Characteristic Value Write (No response)" },
     { "secu",       cmd_sec_level,  "[low | medium | high]",
         "Set security level. Default: low" },
